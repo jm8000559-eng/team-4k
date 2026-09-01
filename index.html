@@ -5,168 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TEAM 4K - Portal Oficial & Reclutamiento</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        }
-
-        body {
-            background: #040609 linear-gradient(135deg, #040609 0%, #0a111e 100%);
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 30px 15px;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* LOGO DE FONDO TRANSPARENTE CON EFECTO NEÓN GUAYABITOS/VENEYORK */
-        .bg-logo-watermark {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85vw;
-            max-width: 650px;
-            height: auto;
-            opacity: 0.12;
-            z-index: 0;
-            pointer-events: none;
-            filter: drop-shadow(0 0 35px #0088ff);
-        }
-
-        .card {
-            background: rgba(12, 17, 28, 0.82);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 136, 255, 0.35);
-            border-radius: 24px;
-            padding: 40px 32px;
-            width: 100%;
-            max-width: 520px;
-            box-shadow: 0 0 45px rgba(0, 136, 255, 0.2), inset 0 0 15px rgba(0, 136, 255, 0.08);
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .logo-container img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #0088ff;
-            box-shadow: 0 0 25px rgba(0, 136, 255, 0.8);
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 30px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, #ffffff, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
-        }
-
-        /* DESCRIPCIÓN DEL CLAN */
-        .clan-description {
-            background: rgba(0, 136, 255, 0.08);
-            border-left: 3px solid #0088ff;
-            padding: 14px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            font-size: 13.5px;
-            line-height: 1.5;
-            color: #d1e2f5;
-        }
-
-        .clan-description strong {
-            color: #0088ff;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #c2d1e0;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 13px 15px;
-            background: rgba(5, 8, 14, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: #0088ff;
-            box-shadow: 0 0 14px rgba(0, 136, 255, 0.5);
-            background: rgba(5, 8, 14, 0.98);
-        }
-
-        select option {
-            background-color: #0d131f;
-            color: #fff;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(90deg, #0055b3, #0088ff);
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            box-shadow: 0 0 25px rgba(0, 136, 255, 0.45);
-            transition: all 0.3s ease;
-            margin-top: 15px;
-            text-transform: uppercase;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 35px rgba(0, 136, 255, 0.8);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
+        body { background: #040609 linear-gradient(135deg, #040609 0%, #0a111e 100%); color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 30px 15px; position: relative; }
+        .bg-logo-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85vw; max-width: 650px; opacity: 0.12; z-index: 0; pointer-events: none; filter: drop-shadow(0 0 35px #0088ff); }
+        .card { background: rgba(12, 17, 28, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(0, 136, 255, 0.35); border-radius: 24px; padding: 40px 32px; width: 100%; max-width: 520px; box-shadow: 0 0 45px rgba(0, 136, 255, 0.2); position: relative; z-index: 1; }
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo-container img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #0088ff; box-shadow: 0 0 25px rgba(0, 136, 255, 0.8); }
+        h1 { text-align: center; font-size: 30px; font-weight: 900; background: linear-gradient(90deg, #ffffff, #0088ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+        .team-description { background: rgba(0, 136, 255, 0.08); border-left: 3px solid #0088ff; padding: 14px; border-radius: 8px; margin-bottom: 25px; font-size: 13.5px; line-height: 1.5; color: #d1e2f5; }
+        .team-description strong { color: #0088ff; }
+        .form-group { margin-bottom: 18px; }
+        .conditional-box { display: none; margin-top: 10px; }
+        label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: #c2d1e0; }
+        input, select, textarea { width: 100%; padding: 13px 15px; background: rgba(5, 8, 14, 0.85); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff; font-size: 14px; outline: none; transition: 0.3s; }
+        input:focus, select:focus, textarea:focus { border-color: #0088ff; box-shadow: 0 0 14px rgba(0, 136, 255, 0.5); }
+        input[type="file"] { padding: 10px; background: rgba(0, 136, 255, 0.05); cursor: pointer; }
+        select option { background-color: #0d131f; color: #fff; }
+        .btn-submit { width: 100%; padding: 16px; background: linear-gradient(90deg, #0055b3, #0088ff); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 0 25px rgba(0, 136, 255, 0.45); transition: 0.3s; margin-top: 15px; text-transform: uppercase; }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(0, 136, 255, 0.8); }
+        .note { text-align: center; font-size: 12px; color: #8a99ad; margin-top: 15px; line-height: 1.4; }
     </style>
 </head>
 <body>
 
-<!-- LOGO TRANSPARENTE DE FONDO -->
-<img src="https://i.ibb.co/1000219027.jpg" alt="Watermark TEAM 4K" class="bg-logo-watermark">
+<img src="logo.jpg" alt="Watermark TEAM 4K" class="bg-logo-watermark">
 
 <div class="card">
     <div class="logo-container">
-        <img src="https://i.ibb.co/1000219027.jpg" alt="Logo TEAM 4K">
+        <img src="logo.jpg" alt="Logo TEAM 4K">
     </div>
 
     <h1>TEAM 4K</h1>
     
-    <!-- DESCRIPCIÓN DEL CLAN -->
-    <div class="clan-description">
-        Bienvenido al portal del <strong>TEAM 4K</strong>, clan organizado de Roblox fundado y liderado por <strong>Paola</strong>. Operamos activamente en los servidores de Roleplay venezolano como <strong>Guayabitos RP</strong> y <strong>VeneYork</strong>. Si buscas un equipo activo, organizado y con buena convivencia, completa el formulario.
+    <div class="team-description">
+        Bienvenido al portal oficial del <strong>TEAM 4K</strong>, team organizado de Roblox fundado y liderado por <strong>Paola</strong>. Operamos activamente en los servidores de Roleplay venezolano como <strong>Guayabitos RP</strong> y <strong>VeneYork</strong>. Si buscas un equipo activo y con convivencia, completa el formulario.
     </div>
 
     <form id="applyForm">
@@ -178,6 +50,11 @@
         <div class="form-group">
             <label for="discord">Usuario de Discord:</label>
             <input type="text" id="discord" placeholder="Ej: @usuario_4k" required>
+        </div>
+
+        <div class="form-group">
+            <label for="country">País de residencia:</label>
+            <input type="text" id="country" placeholder="Ej: Venezuela, Colombia, etc." required>
         </div>
 
         <div class="form-group">
@@ -210,40 +87,92 @@
         </div>
 
         <div class="form-group">
-            <label for="motive">¿Por qué quieres unirte al TEAM 4K?</label>
-            <textarea id="motive" rows="3" placeholder="Cuéntanos tus motivos..." required></textarea>
+            <label for="activity">¿Qué tan activo eres en Roblox?</label>
+            <input type="text" id="activity" placeholder="Ej: 3-4 horas diarias por la tarde" required>
+        </div>
+
+        <div class="form-group">
+            <label for="hasPreviousTeam">¿Has estado en otro team anteriormente?</label>
+            <select id="hasPreviousTeam" onchange="togglePreviousTeamBox()" required>
+                <option value="" disabled selected>Selecciona una respuesta</option>
+                <option value="No">No</option>
+                <option value="Sí">Sí</option>
+            </select>
+
+            <div id="previousTeamBox" class="conditional-box">
+                <label for="previousTeamDetails">¿En cuál team estuviste y por qué saliste?</label>
+                <input type="text" id="previousTeamDetails" placeholder="Especifica el nombre del team y motivo">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="contribution">¿Qué puedes aportar al TEAM 4K?</label>
+            <textarea id="contribution" rows="3" placeholder="PVP, edición de videos, buena vibra, etc." required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="avatar">Foto / Captura de tu avatar de Roblox:</label>
+            <input type="file" id="avatar" accept="image/*">
         </div>
 
         <button type="button" class="btn-submit" onclick="sendToWhatsApp()">ENVIAR POSTULACIÓN</button>
     </form>
+
+    <div class="note">
+        📌 Al ser aceptado por el Staff, recibirás los enlaces a nuestras redes oficiales y los accesos al servidor privado.
+    </div>
 </div>
 
 <script>
+    function togglePreviousTeamBox() {
+        const select = document.getElementById("hasPreviousTeam");
+        const conditionalBox = document.getElementById("previousTeamBox");
+        
+        if (select.value === "Sí") {
+            conditionalBox.style.display = "block";
+        } else {
+            conditionalBox.style.display = "none";
+            document.getElementById("previousTeamDetails").value = "";
+        }
+    }
+
     function sendToWhatsApp() {
-        // Coloca el número de teléfono con código de país (Ej: 58 para Venezuela)
-        const phone = "580000000000"; 
+        const phone = "580000000000"; // Reemplazar por el número del Staff con código de país
 
         const username = document.getElementById("username").value;
         const discord = document.getElementById("discord").value;
+        const country = document.getElementById("country").value;
         const gender = document.getElementById("gender").value;
         const age = document.getElementById("age").value;
         const tiktok = document.getElementById("tiktok").value;
         const server = document.getElementById("server").value;
-        const motive = document.getElementById("motive").value;
+        const activity = document.getElementById("activity").value;
+        const hasPreviousTeam = document.getElementById("hasPreviousTeam").value;
+        const previousTeamDetails = document.getElementById("previousTeamDetails").value;
+        const contribution = document.getElementById("contribution").value;
 
-        if (!username || !discord || !gender || !age || !tiktok || !server || !motive) {
-            alert("Por favor completa todos los campos requeridos.");
+        if (!username || !discord || !country || !gender || !age || !tiktok || !server || !activity || !hasPreviousTeam || !contribution) {
+            alert("Por favor completa todos los campos obligatorios.");
             return;
+        }
+
+        let teamText = hasPreviousTeam;
+        if (hasPreviousTeam === "Sí" && previousTeamDetails) {
+            teamText += ` (${previousTeamDetails})`;
         }
 
         const message = `🔥 *NUEVA POSTULACIÓN - TEAM 4K* 🔥%0A%0A` +
             `👤 *Roblox:* ${username}%0A` +
             `💬 *Discord:* ${discord}%0A` +
+            `🌎 *País:* ${country}%0A` +
             `👑 *Rol:* ${gender}%0A` +
             `🎂 *Edad:* ${age} años%0A` +
             `📲 *TikTok:* ${tiktok}%0A` +
             `🎮 *Servidor RP:* ${server}%0A` +
-            `📝 *Motivo:* ${motive}`;
+            `⏰ *Actividad:* ${activity}%0A` +
+            `🛡️ *Estuvo en otro team:* ${teamText}%0A` +
+            `📝 *Aporte:* ${contribution}%0A%0A` +
+            `📌 *Nota:* Recuerda adjuntar la foto del avatar en este chat.`;
 
         window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
     }
