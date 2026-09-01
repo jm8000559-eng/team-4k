@@ -3,425 +3,591 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEAM 4K - Reclutamiento & Panel Staff</title>
+    <title>Postulaciones - TEAM 4K</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
-        body { background: #040609 linear-gradient(135deg, #040609 0%, #0a111e 100%); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 30px 15px; position: relative; }
-        .bg-logo-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85vw; max-width: 650px; opacity: 0.12; z-index: 0; pointer-events: none; filter: drop-shadow(0 0 35px #0088ff); }
-        
-        .card { background: rgba(12, 17, 28, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(0, 136, 255, 0.35); border-radius: 24px; padding: 40px 32px; width: 100%; max-width: 580px; box-shadow: 0 0 45px rgba(0, 136, 255, 0.2); position: relative; z-index: 1; }
-        .card-wide { max-width: 850px; }
-        .logo-container { text-align: center; margin-bottom: 20px; }
-        .logo-container img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #0088ff; box-shadow: 0 0 25px rgba(0, 136, 255, 0.8); }
-        h1 { text-align: center; font-size: 30px; font-weight: 900; background: linear-gradient(90deg, #ffffff, #0088ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
-        .section-title { font-size: 18px; color: #0088ff; margin: 25px 0 12px 0; border-bottom: 1px solid rgba(0, 136, 255, 0.3); padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .team-description { background: rgba(0, 136, 255, 0.08); border-left: 3px solid #0088ff; padding: 14px; border-radius: 8px; margin-bottom: 25px; font-size: 13.5px; line-height: 1.5; color: #d1e2f5; }
-        
-        .form-group { margin-bottom: 18px; }
-        .conditional-box { display: none; margin-top: 10px; }
-        label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: #c2d1e0; }
-        input, select, textarea { width: 100%; padding: 13px 15px; background: rgba(5, 8, 14, 0.85); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff; font-size: 14px; outline: none; transition: 0.3s; }
-        input:focus, select:focus, textarea:focus { border-color: #0088ff; box-shadow: 0 0 14px rgba(0, 136, 255, 0.5); }
-        select option { background-color: #0d131f; color: #fff; }
-        
-        .btn-submit { width: 100%; padding: 16px; background: linear-gradient(90deg, #0055b3, #0088ff); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 0 25px rgba(0, 136, 255, 0.45); transition: 0.3s; margin-top: 15px; text-transform: uppercase; text-decoration: none; display: inline-block; text-align: center; }
-        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(0, 136, 255, 0.8); }
-        
-        #waitingScreen { display: none; text-align: center; padding: 20px 10px; }
-        #waitingScreen h2 { color: #0088ff; margin-bottom: 15px; font-size: 22px; }
-        #waitingScreen p { color: #d1e2f5; font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
-        .btn-discord { background: linear-gradient(90deg, #5865F2, #4752C4); box-shadow: 0 0 25px rgba(88, 101, 242, 0.45); }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); z-index: 100; justify-content: center; align-items: center; }
-        .modal-content { background: rgba(12, 17, 28, 0.95); border: 1px solid #0088ff; border-radius: 20px; padding: 30px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 0 30px rgba(0, 136, 255, 0.4); }
-        .modal-content h3 { color: #0088ff; margin-bottom: 15px; font-size: 20px; }
-        .modal-btns { display: flex; gap: 10px; margin-top: 15px; }
-        .btn-modal { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
-        .btn-confirm { background: #0088ff; color: #fff; }
-        .btn-cancel { background: #2d3436; color: #fff; }
+        body {
+            background-color: #0f141d;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-        .staff-login-btn { position: fixed; bottom: 15px; right: 15px; background: rgba(12, 17, 28, 0.9); border: 1px solid #0088ff; color: #0088ff; padding: 10px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; z-index: 90; box-shadow: 0 0 15px rgba(0, 136, 255, 0.3); }
-        .staff-login-btn:hover { background: #0088ff; color: #fff; }
-        
-        #staffPanel { display: none; }
-        .req-card, .log-card { background: rgba(5, 8, 14, 0.9); border: 1px solid rgba(0, 136, 255, 0.2); border-radius: 14px; padding: 20px; margin-bottom: 15px; text-align: left; }
-        .req-header, .log-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px; margin-bottom: 10px; }
-        .history-tag { font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: bold; }
-        .tag-new { background: rgba(0, 136, 255, 0.2); color: #0088ff; }
-        .tag-ex { background: rgba(255, 170, 0, 0.2); color: #ffaa00; }
-        .tag-accepted { background: rgba(0, 184, 148, 0.2); color: #00b894; }
-        .tag-rejected { background: rgba(214, 48, 49, 0.2); color: #d63031; }
-        
-        .req-details, .log-details { font-size: 13px; color: #c2d1e0; line-height: 1.6; }
-        .req-details strong, .log-details strong { color: #fff; }
-        
-        .actions { display: flex; gap: 10px; margin-top: 15px; }
-        .btn-action { flex: 1; padding: 10px; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-accept { background: #00b894; color: #fff; }
-        .btn-accept:hover { background: #00876c; }
-        .btn-reject { background: #d63031; color: #fff; }
-        .btn-reject:hover { background: #a62324; }
+        .container {
+            background-color: #1a2232;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 650px;
+            padding: 30px;
+            border: 1px solid #2a354d;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: #0088ff;
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            color: #8a99ad;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #c2d1e5;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #2a354d;
+            background-color: #0f141d;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            border-color: #0088ff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: #0088ff;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0066cc;
+        }
+
+        .staff-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #2a354d;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .staff-btn:hover {
+            background: #3b4b6e;
+        }
+
+        /* Modales */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #1a2232;
+            padding: 25px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid #2a354d;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 15px;
+            color: #0088ff;
+        }
+
+        /* Panel Staff */
+        .staff-panel {
+            display: none;
+            max-width: 800px;
+        }
+
+        .req-card, .log-card {
+            background: #0f141d;
+            border: 1px solid #2a354d;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .req-header, .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #2a354d;
+            padding-bottom: 8px;
+        }
+
+        .req-details p, .log-details p {
+            font-size: 13px;
+            color: #c2d1e5;
+            margin-bottom: 5px;
+        }
+
+        .history-tag {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag-ex { background: #d63031; color: #fff; }
+        .tag-new { background: #00b894; color: #fff; }
+        .tag-accepted { background: #00b894; color: #fff; }
+        .tag-rejected { background: #d63031; color: #fff; }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-action {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .btn-accept { background: #00b894; }
+        .btn-reject { background: #d63031; }
+
+        .waiting-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .waiting-screen h2 {
+            color: #00b894;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 
-<img src="logo.jpg" alt="Watermark TEAM 4K" class="bg-logo-watermark">
+    <!-- TARJETA DEL USUARIO (FORMULARIO) -->
+    <div class="container" id="userCard">
+        <button class="staff-btn" onclick="openPasswordModal()">Acceso Staff 🔒</button>
 
-<div class="card" id="userCard">
-    <div class="logo-container">
-        <img src="logo.jpg" alt="Logo TEAM 4K">
+        <div class="header">
+            <h1>TEAM 4K</h1>
+            <p>Formulario de Postulación de Miembros</p>
+        </div>
+
+        <form id="applyForm">
+            <div class="form-group">
+                <label for="username">Usuario de Roblox:</label>
+                <input type="text" id="username" placeholder="Ej: Johan_25" required>
+            </div>
+
+            <div class="form-group">
+                <label for="robloxId">ID de Roblox:</label>
+                <input type="text" id="robloxId" placeholder="Ej: 123456789" required>
+            </div>
+
+            <div class="form-group">
+                <label for="avatarImg">Link de foto/Avatar de Roblox:</label>
+                <input type="url" id="avatarImg" placeholder="https://..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="robloxProfile">Link de perfil de Roblox:</label>
+                <input type="url" id="robloxProfile" placeholder="https://www.roblox.com/users/..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="discord">Usuario de Discord:</label>
+                <input type="text" id="discord" placeholder="Ej: usuario#0000 o @usuario" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Rol / Género:</label>
+                <select id="gender" required>
+                    <option value="">Selecciona...</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="rpLevel">Nivel de Roleplay (1 al 10):</label>
+                <select id="rpLevel" required>
+                    <option value="">Selecciona...</option>
+                    <option value="1">1 - Principiante</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 - Intermedio</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8 - Avanzado</option>
+                    <option value="9">9</option>
+                    <option value="10">10 - Experto</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="schedule">Horarios disponibles para eventos:</label>
+                <input type="text" id="schedule" placeholder="Ej: Lunes a Viernes de 2pm a 6pm" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hasPreviousTeam">¿Has estado en un Team anteriormente?</label>
+                <select id="hasPreviousTeam" onchange="togglePreviousTeamBox()" required>
+                    <option value="">Selecciona...</option>
+                    <option value="No">No</option>
+                    <option value="Sí">Sí</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="previousTeamBox" style="display: none;">
+                <label for="previousTeamDetails">¿En qué Team estuviste y por qué saliste?</label>
+                <textarea id="previousTeamDetails" placeholder="Detalla los nombres de los teams y motivos..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="whyJoin">¿Por qué quieres entrar a TEAM 4K?</label>
+                <textarea id="whyJoin" placeholder="Explica tus motivos..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="commitment">¿Te comprometes a respetar las reglas del Clan?</label>
+                <select id="commitment" required>
+                    <option value="">Selecciona...</option>
+                    <option value="Sí, totalmente comprometido/a">Sí, totalmente comprometido/a</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn-submit" onclick="submitForm()">Enviar Postulación</button>
+        </form>
+
+        <div class="waiting-screen" id="waitingScreen">
+            <h2>¡Postulación Enviada!</h2>
+            <p style="color: #8a99ad;">Tu solicitud ha sido registrada en el sistema.<br>El equipo de Staff la revisará pronto.</p>
+        </div>
     </div>
 
-    <h1>TEAM 4K</h1>
-    
-    <div class="team-description">
-        Bienvenido al portal oficial del <strong>TEAM 4K</strong>, team de Roblox liderado por <strong>Paola</strong> en <strong>Guayabitos RP</strong> y <strong>VeneYork</strong>.
+    <!-- PANEL DE STAFF -->
+    <div class="container staff-panel" id="staffPanel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h1 style="color: #0088ff;">Panel de Staff - TEAM 4K</h1>
+            <button onclick="exitStaff()" style="background: #d63031; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">Cerrar Sesión</button>
+        </div>
+
+        <h2 style="font-size: 18px; margin-bottom: 15px; color: #c2d1e5;">Solicitudes Pendientes</h2>
+        <div id="requestsList"></div>
+
+        <h2 style="font-size: 18px; margin-top: 30px; margin-bottom: 15px; color: #c2d1e5;">Historial de Auditoría</h2>
+        <div id="auditLogList"></div>
     </div>
 
-    <form id="applyForm">
-        <div class="form-group">
-            <label for="username">Usuario exacto de Roblox:</label>
-            <input type="text" id="username" placeholder="Ej: Player4K_Official" required>
-        </div>
-
-        <div class="form-group">
-            <label for="robloxId">ID numérico de Roblox:</label>
-            <input type="text" id="robloxId" placeholder="Ej: 123456789" required>
-        </div>
-
-        <div class="form-group">
-            <label for="avatarImg">Link de imagen/foto de tu avatar de Roblox:</label>
-            <input type="url" id="avatarImg" placeholder="https://..." required>
-        </div>
-
-        <div class="form-group">
-            <label for="robloxProfile">Link directo a tu perfil de Roblox:</label>
-            <input type="url" id="robloxProfile" placeholder="https://www.roblox.com/users/..." required>
-        </div>
-
-        <div class="form-group">
-            <label for="discord">Usuario de Discord (Tag o ID):</label>
-            <input type="text" id="discord" placeholder="Ej: @usuario_4k" required>
-        </div>
-
-        <div class="form-group">
-            <label for="gender">Rol a postular:</label>
-            <select id="gender" required>
-                <option value="" disabled selected>Selecciona tu rol</option>
-                <option value="4K BOYS">4K BOYS</option>
-                <option value="4K GIRLS">4K GIRLS</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="rpLevel">Nivel de experiencia en Roleplay (1 al 10):</label>
-            <input type="number" id="rpLevel" min="1" max="10" placeholder="Ej: 8" required>
-        </div>
-
-        <div class="form-group">
-            <label for="schedule">Disponibilidad de tiempo / Horarios de juego:</label>
-            <input type="text" id="schedule" placeholder="Ej: Tardes y noches / 3 a 4 horas diarias" required>
-        </div>
-
-        <div class="form-group">
-            <label for="hasPreviousTeam">¿Has estado en otro team anteriormente?</label>
-            <select id="hasPreviousTeam" onchange="togglePreviousTeamBox()" required>
-                <option value="" disabled selected>Selecciona una respuesta</option>
-                <option value="No">No</option>
-                <option value="Sí">Sí</option>
-            </select>
-
-            <div id="previousTeamBox" class="conditional-box">
-                <label for="previousTeamDetails">¿En cuál team estuviste y por qué saliste?</label>
-                <input type="text" id="previousTeamDetails" placeholder="Nombre del team y motivo de salida">
+    <!-- MODAL DE CONTRASEÑA STAFF -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content">
+            <h3>Acceso de Staff</h3>
+            <div class="form-group">
+                <label for="staffPassInput">Ingresa la contraseña de Staff:</label>
+                <input type="password" id="staffPassInput" placeholder="Contraseña...">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="verifyStaffPass()" class="btn-submit" style="margin-top:0;">Entrar</button>
+                <button onclick="closePasswordModal()" class="btn-submit" style="margin-top:0; background: #555;">Cancelar</button>
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="whyJoin">¿Por qué deseas unirte al TEAM 4K?</label>
-            <textarea id="whyJoin" rows="3" placeholder="Cuéntanos tus motivos..." required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="commitment">¿Te comprometes a respetar a los líderes y mantener la actividad?</label>
-            <select id="commitment" required>
-                <option value="" disabled selected>Selecciona una opción</option>
-                <option value="Sí, totalmente comprometido/a">Sí, totalmente comprometido/a</option>
-                <option value="No">No</option>
-            </select>
-        </div>
-
-        <button type="button" class="btn-submit" onclick="submitForm()">ENVIAR POSTULACIÓN</button>
-    </form>
-
-    <div id="waitingScreen">
-        <h2>⏳ POSTULACIÓN REGISTRADA</h2>
-        <p>Tu solicitud ha sido enviada con éxito al sistema. Por favor, <strong>espera ser autorizado por los encargados de Staff</strong> para obtener acceso oficial.</p>
-        <p style="font-size:13px; color:#a0b2c6;">Una vez aprobado por el Staff, podrás ingresar a nuestro Discord oficial:</p>
-        <a href="https://discord.gg/pJVFudTwu" target="_blank" class="btn-submit btn-discord">ENTRAR AL DISCORD OFICIAL</a>
-    </div>
-</div>
-
-<div class="modal-overlay" id="passwordModal">
-    <div class="modal-content">
-        <h3>🔐 Acceso Exclusivo Staff</h3>
-        <p style="font-size:13px; color:#c2d1e0; margin-bottom:15px;">Introduce la clave del equipo para gestionar las postulaciones:</p>
-        <input type="password" id="staffPassInput" placeholder="Contraseña de Staff">
-        <div class="modal-btns">
-            <button class="btn-modal btn-cancel" onclick="closePasswordModal()">Cancelar</button>
-            <button class="btn-modal btn-confirm" onclick="verifyStaffPass()">Entrar</button>
-        </div>
-    </div>
-</div>
-
-<div class="modal-overlay" id="staffSignModal">
-    <div class="modal-content">
-        <h3 id="signModalTitle">✍️ Confirmación de Staff</h3>
-        <p style="font-size:13px; color:#c2d1e0; margin-bottom:15px;">Ingresa tu nombre o nick de Staff para registrar tu acción:</p>
-        <input type="text" id="staffNameInput" placeholder="Ej: Paola / Admin4K">
-        <div class="modal-btns">
-            <button class="btn-modal btn-cancel" onclick="closeSignModal()">Cancelar</button>
-            <button class="btn-modal btn-confirm" onclick="confirmStaffAction()">Confirmar Registro</button>
-        </div>
-    </div>
-</div>
-
-<div class="card card-wide" id="staffPanel">
-    <h1>PANEL DE STAFF - TEAM 4K</h1>
-    <div class="team-description">
-        Gestión en tiempo real de solicitudes de ingreso y auditoría de decisiones.
     </div>
 
-    <div class="section-title">📥 Solicitudes Pendientes</div>
-    <div id="requestsList"></div>
+    <!-- MODAL DE FIRMA DE STAFF -->
+    <div class="modal" id="staffSignModal">
+        <div class="modal-content">
+            <h3 id="signModalTitle">Confirmar Acción</h3>
+            <div class="form-group">
+                <label for="staffNameInput">Tu nombre de Staff:</label>
+                <input type="text" id="staffNameInput" placeholder="Ej: Staff_Johan">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="confirmStaffAction()" class="btn-submit" style="margin-top:0;">Confirmar</button>
+                <button onclick="closeSignModal()" class="btn-submit" style="margin-top:0; background: #555;">Cancelar</button>
+            </div>
+        </div>
+    </div>
 
-    <div class="section-title">📊 Historial & Auditoría de Acciones</div>
-    <div id="auditLogList"></div>
+    <script>
+        const API_URL = "http://localhost:3000/api";
+        let activeAction = null;
 
-    <button class="btn-submit" style="background: #2d3436; margin-top: 20px;" onclick="exitStaff()">CERRAR PANEL</button>
-</div>
-
-<button class="staff-login-btn" onclick="openPasswordModal()">Acceso Staff 🔓</button>
-
-<script>
-    let activeAction = null;
-
-    function togglePreviousTeamBox() {
-        const select = document.getElementById("hasPreviousTeam");
-        const conditionalBox = document.getElementById("previousTeamBox");
-        conditionalBox.style.display = (select.value === "Sí") ? "block" : "none";
-    }
-
-    function submitForm() {
-        const username = document.getElementById("username").value.trim();
-        const robloxId = document.getElementById("robloxId").value.trim();
-        const avatarImg = document.getElementById("avatarImg").value.trim();
-        const robloxProfile = document.getElementById("robloxProfile").value.trim();
-        const discord = document.getElementById("discord").value.trim();
-        const gender = document.getElementById("gender").value;
-        const rpLevel = document.getElementById("rpLevel").value;
-        const schedule = document.getElementById("schedule").value.trim();
-        const hasPrev = document.getElementById("hasPreviousTeam").value;
-        const prevDetails = document.getElementById("previousTeamDetails").value.trim();
-        const whyJoin = document.getElementById("whyJoin").value.trim();
-        const commitment = document.getElementById("commitment").value;
-
-        if (!username || !robloxId || !avatarImg || !robloxProfile || !discord || !gender || !rpLevel || !schedule || !hasPrev || !whyJoin || !commitment) {
-            alert("Por favor completa todos los campos del formulario.");
-            return;
+        function togglePreviousTeamBox() {
+            const select = document.getElementById("hasPreviousTeam");
+            const conditionalBox = document.getElementById("previousTeamBox");
+            conditionalBox.style.display = (select.value === "Sí") ? "block" : "none";
         }
 
-        let requests = JSON.parse(localStorage.getItem("team4k_requests") || "[]");
-        let membersHistory = JSON.parse(localStorage.getItem("team4k_history") || "[]");
+        async function submitForm() {
+            const username = document.getElementById("username").value.trim();
+            const robloxId = document.getElementById("robloxId").value.trim();
+            const avatarImg = document.getElementById("avatarImg").value.trim();
+            const robloxProfile = document.getElementById("robloxProfile").value.trim();
+            const discord = document.getElementById("discord").value.trim();
+            const gender = document.getElementById("gender").value;
+            const rpLevel = document.getElementById("rpLevel").value;
+            const schedule = document.getElementById("schedule").value.trim();
+            const hasPrevSelect = document.getElementById("hasPreviousTeam").value;
+            const prevDetails = document.getElementById("previousTeamDetails").value.trim();
+            const whyJoin = document.getElementById("whyJoin").value.trim();
+            const commitment = document.getElementById("commitment").value;
 
-        let previousRecord = membersHistory.find(m => m.username.toLowerCase() === username.toLowerCase());
+            if (!username || !robloxId || !avatarImg || !robloxProfile || !discord || !gender || !rpLevel || !schedule || !hasPrevSelect || !whyJoin || !commitment) {
+                alert("Por favor completa todos los campos obligatorios del formulario.");
+                return;
+            }
 
-        const newRequest = {
-            id: Date.now(),
-            username,
-            robloxId,
-            avatarImg,
-            robloxProfile,
-            discord,
-            gender,
-            rpLevel,
-            schedule,
-            hasPrev: hasPrev === "Sí" ? `Sí (${prevDetails})` : "No",
-            whyJoin,
-            commitment,
-            exMember: previousRecord ? true : false,
-            joinedDate: previousRecord ? previousRecord.joinedDate : null
-        };
+            const payload = {
+                username,
+                robloxId,
+                avatarImg,
+                robloxProfile,
+                discord,
+                gender,
+                rpLevel,
+                schedule,
+                hasPrev: hasPrevSelect === "Sí" ? `Sí (${prevDetails})` : "No",
+                whyJoin,
+                commitment
+            };
 
-        requests.push(newRequest);
-        localStorage.setItem("team4k_requests", JSON.stringify(requests));
+            try {
+                const response = await fetch(`${API_URL}/apply`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
 
-        document.getElementById("applyForm").reset();
-        document.getElementById("applyForm").style.display = "none";
-        document.getElementById("waitingScreen").style.display = "block";
-    }
-
-    function openPasswordModal() {
-        document.getElementById("passwordModal").style.display = "flex";
-        document.getElementById("staffPassInput").value = "";
-        document.getElementById("staffPassInput").focus();
-    }
-
-    function closePasswordModal() {
-        document.getElementById("passwordModal").style.display = "none";
-    }
-
-    function verifyStaffPass() {
-        const pass = document.getElementById("staffPassInput").value;
-        if (pass === "staff4k") {
-            closePasswordModal();
-            document.getElementById("userCard").style.display = "none";
-            document.getElementById("staffPanel").style.display = "block";
-            renderRequests();
-            renderAuditLogs();
-        } else {
-            alert("Contraseña de Staff incorrecta.");
-        }
-    }
-
-    function exitStaff() {
-        document.getElementById("staffPanel").style.display = "none";
-        document.getElementById("userCard").style.display = "block";
-        document.getElementById("applyForm").style.display = "block";
-        document.getElementById("waitingScreen").style.display = "none";
-    }
-
-    function renderRequests() {
-        const container = document.getElementById("requestsList");
-        let requests = JSON.parse(localStorage.getItem("team4k_requests") || "[]");
-
-        if (requests.length === 0) {
-            container.innerHTML = "<p style='text-align:center; color:#8a99ad; padding: 10px;'>No hay solicitudes pendientes.</p>";
-            return;
+                if (response.ok) {
+                    document.getElementById("applyForm").reset();
+                    document.getElementById("applyForm").style.display = "none";
+                    document.getElementById("waitingScreen").style.display = "block";
+                } else {
+                    alert("Ocurrió un error al enviar la postulación.");
+                }
+            } catch (error) {
+                console.error("Error al conectar con el servidor:", error);
+                alert("No se pudo conectar con el servidor. Verifica que 'node server.js' esté ejecutándose.");
+            }
         }
 
-        let html = "";
-        requests.forEach(req => {
-            let historyHtml = req.exMember 
-                ? `<span class="history-tag tag-ex">⚠️ Ya fue integrante | Se unió: ${req.joinedDate}</span>`
-                : `<span class="history-tag tag-new">✨ Usuario Nuevo</span>`;
-
-            html += `
-                <div class="req-card">
-                    <div class="req-header">
-                        <strong>👤 Roblox: ${req.username} (ID: ${req.robloxId})</strong>
-                        ${historyHtml}
-                    </div>
-                    <div class="req-details">
-                        <p><strong>🖼 Avatar:</strong> <a href="${req.avatarImg}" target="_blank" style="color:#0088ff;">Ver Imagen</a> | <strong>🔗 Perfil:</strong> <a href="${req.robloxProfile}" target="_blank" style="color:#0088ff;">Perfil Roblox</a></p>
-                        <p><strong>💬 Discord:</strong> ${req.discord} | <strong>👑 Rol:</strong> ${req.gender}</p>
-                        <p><strong>🎭 Nivel RP:</strong> ${req.rpLevel}/10 | <strong>⏰ Horarios:</strong> ${req.schedule}</p>
-                        <p><strong>🛡️ Teams anteriores:</strong> ${req.hasPrev}</p>
-                        <p><strong>📝 Razón de ingreso:</strong> ${req.whyJoin}</p>
-                        <p><strong>🤝 Compromiso:</strong> ${req.commitment}</p>
-                    </div>
-                    
-                    <div class="actions">
-                        <button class="btn-action btn-accept" onclick="openStaffSignModal(${req.id}, 'accept')" title="Aceptar Solicitud">✔ Aceptar</button>
-                        <button class="btn-action btn-reject" onclick="openStaffSignModal(${req.id}, 'reject')" title="Rechazar Solicitud">✖ Declinar</button>
-                    </div>
-                </div>
-            `;
-        });
-        container.innerHTML = html;
-    }
-
-    function openStaffSignModal(id, type) {
-        activeAction = { id, type };
-        document.getElementById("staffSignModal").style.display = "flex";
-        document.getElementById("staffNameInput").value = "";
-        document.getElementById("staffNameInput").focus();
-        document.getElementById("signModalTitle").innerText = type === 'accept' ? "✔ Aprobar Postulación" : "✖ Declinar Postulación";
-    }
-
-    function closeSignModal() {
-        document.getElementById("staffSignModal").style.display = "none";
-        activeAction = null;
-    }
-
-    function confirmStaffAction() {
-        const staffName = document.getElementById("staffNameInput").value.trim();
-        if (!staffName) {
-            alert("Por favor ingresa tu nombre de Staff.");
-            return;
+        function openPasswordModal() {
+            document.getElementById("passwordModal").style.display = "flex";
+            document.getElementById("staffPassInput").value = "";
+            document.getElementById("staffPassInput").focus();
         }
 
-        let requests = JSON.parse(localStorage.getItem("team4k_requests") || "[]");
-        let membersHistory = JSON.parse(localStorage.getItem("team4k_history") || "[]");
-        let auditLogs = JSON.parse(localStorage.getItem("team4k_audit_logs") || "[]");
-
-        const index = requests.findIndex(r => r.id === activeAction.id);
-        if (index === -1) return;
-
-        const req = requests[index];
-        const now = new Date();
-        const dateStr = now.toLocaleDateString();
-        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-        if (activeAction.type === 'accept') {
-            membersHistory.push({
-                username: req.username,
-                discord: req.discord,
-                joinedDate: `${dateStr} ${timeStr}`,
-                approvedBy: staffName
-            });
-            localStorage.setItem("team4k_history", JSON.stringify(membersHistory));
+        function closePasswordModal() {
+            document.getElementById("passwordModal").style.display = "none";
         }
 
-        auditLogs.unshift({
-            username: req.username,
-            discord: req.discord,
-            action: activeAction.type === 'accept' ? 'Aceptado' : 'Declinado',
-            staff: staffName,
-            date: dateStr,
-            time: timeStr
-        });
-        localStorage.setItem("team4k_audit_logs", JSON.stringify(auditLogs));
-
-        requests.splice(index, 1);
-        localStorage.setItem("team4k_requests", JSON.stringify(requests));
-
-        closeSignModal();
-        renderRequests();
-        renderAuditLogs();
-    }
-
-    function renderAuditLogs() {
-        const container = document.getElementById("auditLogList");
-        let auditLogs = JSON.parse(localStorage.getItem("team4k_audit_logs") || "[]");
-
-        if (auditLogs.length === 0) {
-            container.innerHTML = "<p style='text-align:center; color:#8a99ad; padding: 10px;'>No hay registros de acciones aún.</p>";
-            return;
+        function verifyStaffPass() {
+            const pass = document.getElementById("staffPassInput").value;
+            if (pass === "staff4k") {
+                closePasswordModal();
+                document.getElementById("userCard").style.display = "none";
+                document.getElementById("staffPanel").style.display = "block";
+                renderRequests();
+                renderAuditLogs();
+            } else {
+                alert("Contraseña de Staff incorrecta.");
+            }
         }
 
-        let html = "";
-        auditLogs.forEach(log => {
-            const isAccepted = log.action === 'Aceptado';
-            const tagClass = isAccepted ? 'tag-accepted' : 'tag-rejected';
+        function exitStaff() {
+            document.getElementById("staffPanel").style.display = "none";
+            document.getElementById("userCard").style.display = "block";
+            document.getElementById("applyForm").style.display = "block";
+            document.getElementById("waitingScreen").style.display = "none";
+        }
 
-            html += `
-                <div class="log-card">
-                    <div class="log-header">
-                        <strong>👤 Usuario: ${log.username}</strong>
-                        <span class="history-tag ${tagClass}">${isAccepted ? '✔ ACEPTADO' : '✖ DECLINADO'}</span>
-                    </div>
-                    <div class="log-details">
-                        <p><strong>👮 Responsable Staff:</strong> ${log.staff}</p>
-                        <p><strong>📅 Fecha:</strong> ${log.date} | <strong>⏰ Hora:</strong> ${log.time}</p>
-                        <p><strong>💬 Discord:</strong> ${log.discord}</p>
-                    </div>
-                </div>
-            `;
-        });
-        container.innerHTML = html;
-    }
-</script>
+        async function renderRequests() {
+            const container = document.getElementById("requestsList");
 
+            try {
+                const response = await fetch(`${API_URL}/requests`);
+                const requests = await response.json();
+
+                if (requests.length === 0) {
+                    container.innerHTML = "<p style='text-align:center; color:#8a99ad; padding: 10px;'>No hay solicitudes pendientes.</p>";
+                    return;
+                }
+
+                let html = "";
+                requests.forEach(req => {
+                    let historyHtml = req.exMember 
+                        ? `<span class="history-tag tag-ex">⚠️ Ya fue integrante | Se unió: ${new Date(req.joinedDate).toLocaleDateString()}</span>`
+                        : `<span class="history-tag tag-new">✨ Usuario Nuevo</span>`;
+
+                    html += `
+                        <div class="req-card">
+                            <div class="req-header">
+                                <strong>👤 Roblox: ${req.username} (ID: ${req.roblox_id})</strong>
+                                ${historyHtml}
+                            </div>
+                            <div class="req-details">
+                                <p><strong>🖼 Avatar:</strong> <a href="${req.avatar_img}" target="_blank" style="color:#0088ff;">Ver Imagen</a> | <strong>🔗 Perfil:</strong> <a href="${req.roblox_profile}" target="_blank" style="color:#0088ff;">Perfil Roblox</a></p>
+                                <p><strong>💬 Discord:</strong> ${req.discord} | <strong>👑 Género:</strong> ${req.gender}</p>
+                                <p><strong>🎭 Nivel RP:</strong> ${req.rp_level}/10 | <strong>⏰ Horarios:</strong> ${req.schedule}</p>
+                                <p><strong>🛡️ Teams anteriores:</strong> ${req.has_prev}</p>
+                                <p><strong>📝 Razón de ingreso:</strong> ${req.why_join}</p>
+                                <p><strong>🤝 Compromiso:</strong> ${req.commitment}</p>
+                            </div>
+                            
+                            <div class="actions">
+                                <button class="btn-action btn-accept" onclick="openStaffSignModal(${req.id}, 'accept')" title="Aceptar Solicitud">✔ Aceptar</button>
+                                <button class="btn-action btn-reject" onclick="openStaffSignModal(${req.id}, 'reject')" title="Rechazar Solicitud">✖ Declinar</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            } catch (error) {
+                container.innerHTML = "<p style='text-align:center; color:#d63031;'>Error al cargar las solicitudes.</p>";
+            }
+        }
+
+        function openStaffSignModal(id, type) {
+            activeAction = { id, type };
+            document.getElementById("staffSignModal").style.display = "flex";
+            document.getElementById("staffNameInput").value = "";
+            document.getElementById("staffNameInput").focus();
+            document.getElementById("signModalTitle").innerText = type === 'accept' ? "✔ Aprobar Postulación" : "✖ Declinar Postulación";
+        }
+
+        function closeSignModal() {
+            document.getElementById("staffSignModal").style.display = "none";
+            activeAction = null;
+        }
+
+        async function confirmStaffAction() {
+            const staffName = document.getElementById("staffNameInput").value.trim();
+            if (!staffName) {
+                alert("Por favor ingresa tu nombre de Staff.");
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/staff/action`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        id: activeAction.id,
+                        type: activeAction.type,
+                        staffName: staffName
+                    })
+                });
+
+                if (response.ok) {
+                    closeSignModal();
+                    renderRequests();
+                    renderAuditLogs();
+                } else {
+                    alert("Error al procesar la solicitud.");
+                }
+            } catch (error) {
+                console.error("Error al registrar acción:", error);
+            }
+        }
+
+        async function renderAuditLogs() {
+            const container = document.getElementById("auditLogList");
+
+            try {
+                const response = await fetch(`${API_URL}/audit-logs`);
+                const auditLogs = await response.json();
+
+                if (auditLogs.length === 0) {
+                    container.innerHTML = "<p style='text-align:center; color:#8a99ad; padding: 10px;'>No hay registros de acciones aún.</p>";
+                    return;
+                }
+
+                let html = "";
+                auditLogs.forEach(log => {
+                    const isAccepted = log.action === 'Aceptado';
+                    const tagClass = isAccepted ? 'tag-accepted' : 'tag-rejected';
+                    const dateObj = new Date(log.created_at);
+
+                    html += `
+                        <div class="log-card">
+                            <div class="log-header">
+                                <strong>👤 Usuario: ${log.username}</strong>
+                                <span class="history-tag ${tagClass}">${isAccepted ? '✔ ACEPTADO' : '✖ DECLINADO'}</span>
+                            </div>
+                            <div class="log-details">
+                                <p><strong>👮 Responsable Staff:</strong> ${log.staff}</p>
+                                <p><strong>📅 Fecha:</strong> ${dateObj.toLocaleDateString()} | <strong>⏰ Hora:</strong> ${dateObj.toLocaleTimeString()}</p>
+                                <p><strong>💬 Discord:</strong> ${log.discord}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            } catch (error) {
+                container.innerHTML = "<p style='text-align:center; color:#d63031;'>Error al cargar el historial.</p>";
+            }
+        }
+    </script>
 </body>
 </html>
