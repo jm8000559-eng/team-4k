@@ -23,13 +23,16 @@
         input:focus, select:focus, textarea:focus { border-color: #0088ff; box-shadow: 0 0 14px rgba(0, 136, 255, 0.5); }
         select option { background-color: #0d131f; color: #fff; }
         
-        .btn-submit { width: 100%; padding: 16px; background: linear-gradient(90deg, #0055b3, #0088ff); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 0 25px rgba(0, 136, 255, 0.45); transition: 0.3s; margin-top: 15px; text-transform: uppercase; }
+        .btn-submit { width: 100%; padding: 16px; background: linear-gradient(90deg, #0055b3, #0088ff); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 0 25px rgba(0, 136, 255, 0.45); transition: 0.3s; margin-top: 15px; text-transform: uppercase; text-decoration: none; display: inline-block; text-align: center; }
         .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(0, 136, 255, 0.8); }
         
-        /* PANTALLA DE ESPERA */
-        #waitingScreen { display: none; text-align: center; padding: 30px 10px; }
+        /* PANTALLA DE ESPERA Y ACEPTACIÓN */
+        #waitingScreen { display: none; text-align: center; padding: 20px 10px; }
         #waitingScreen h2 { color: #0088ff; margin-bottom: 15px; font-size: 22px; }
-        #waitingScreen p { color: #d1e2f5; font-size: 15px; line-height: 1.6; }
+        #waitingScreen p { color: #d1e2f5; font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
+
+        .btn-discord { background: linear-gradient(90deg, #5865F2, #4752C4); box-shadow: 0 0 25px rgba(88, 101, 242, 0.45); }
+        .btn-discord:hover { box-shadow: 0 0 35px rgba(88, 101, 242, 0.8); }
         
         /* BOTÓN DE ACCESO A STAFF */
         .staff-login-btn { margin-top: 20px; background: none; border: none; color: #556b82; font-size: 12px; cursor: pointer; text-decoration: underline; z-index: 2; }
@@ -105,10 +108,12 @@
         <button type="button" class="btn-submit" onclick="submitForm()">ENVIAR POSTULACIÓN</button>
     </form>
 
-    <!-- MENSAJE DE ESPERA DE AUTORIZACIÓN -->
+    <!-- MENSAJE DE ESPERA Y ACCESO -->
     <div id="waitingScreen">
         <h2>⏳ POSTULACIÓN REGISTRADA</h2>
-        <p>Tu solicitud ha sido enviada al sistema. Por favor, <strong>espera ser autorizado por los encargados de Staff</strong> para obtener acceso oficial al equipo.</p>
+        <p>Tu solicitud ha sido enviada con éxito al sistema. Por favor, <strong>espera ser autorizado por los encargados de Staff</strong> para obtener acceso oficial.</p>
+        <p style="font-size:13px; color:#a0b2c6;">Una vez seas aprobado por el Staff, podrás unirte directamente a nuestro Discord oficial:</p>
+        <a href="https://discord.gg/pJVFudTwu" target="_blank" class="btn-submit btn-discord">ENTRAR AL DISCORD OFICIAL</a>
     </div>
 </div>
 
@@ -126,7 +131,7 @@
 <button class="staff-login-btn" onclick="loginStaff()">Acceso Staff 🔓</button>
 
 <script>
-    const DISCORD_INVITE = "https://discord.gg/TU_CODIGO_DE_INVITACION";
+    const DISCORD_INVITE = "https://discord.gg/pJVFudTwu";
 
     function togglePreviousTeamBox() {
         const select = document.getElementById("hasPreviousTeam");
@@ -149,7 +154,7 @@
         let requests = JSON.parse(localStorage.getItem("team4k_requests") || "[]");
         let membersHistory = JSON.parse(localStorage.getItem("team4k_history") || "[]");
 
-        // Verificar si el usuario ya perteneció al team
+        // Verificar si el usuario ya perteneció al team anteriormente
         let previousRecord = membersHistory.find(m => m.username.toLowerCase() === username.toLowerCase());
 
         const newRequest = {
@@ -167,15 +172,15 @@
         requests.push(newRequest);
         localStorage.setItem("team4k_requests", JSON.stringify(requests));
 
-        // Mostrar pantalla de espera de autorización
+        // Ocultar formulario y mostrar pantalla de espera
         document.getElementById("applyForm").style.display = "none";
         document.getElementById("waitingScreen").style.display = "block";
     }
 
-    /* FUNCIONES DE STAFF */
+    /* FUNCIONES DEL PANEL DE STAFF */
     function loginStaff() {
         const pass = prompt("Introduce la clave de acceso Staff:");
-        if (pass === "staff4k") { // Clave por defecto
+        if (pass === "staff4k") { // Clave predeterminada
             document.getElementById("userCard").style.display = "none";
             document.getElementById("staffPanel").style.display = "block";
             renderRequests();
