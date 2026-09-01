@@ -3,33 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEAM 4K - Portal Oficial & Reclutamiento</title>
+    <title>TEAM 4K - Reclutamiento & Panel Staff</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
-        body { background: #040609 linear-gradient(135deg, #040609 0%, #0a111e 100%); color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 30px 15px; position: relative; }
+        body { background: #040609 linear-gradient(135deg, #040609 0%, #0a111e 100%); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 30px 15px; position: relative; }
         .bg-logo-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85vw; max-width: 650px; opacity: 0.12; z-index: 0; pointer-events: none; filter: drop-shadow(0 0 35px #0088ff); }
+        
         .card { background: rgba(12, 17, 28, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(0, 136, 255, 0.35); border-radius: 24px; padding: 40px 32px; width: 100%; max-width: 520px; box-shadow: 0 0 45px rgba(0, 136, 255, 0.2); position: relative; z-index: 1; }
+        .card-wide { max-width: 800px; }
         .logo-container { text-align: center; margin-bottom: 20px; }
         .logo-container img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #0088ff; box-shadow: 0 0 25px rgba(0, 136, 255, 0.8); }
         h1 { text-align: center; font-size: 30px; font-weight: 900; background: linear-gradient(90deg, #ffffff, #0088ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
         .team-description { background: rgba(0, 136, 255, 0.08); border-left: 3px solid #0088ff; padding: 14px; border-radius: 8px; margin-bottom: 25px; font-size: 13.5px; line-height: 1.5; color: #d1e2f5; }
-        .team-description strong { color: #0088ff; }
+        
         .form-group { margin-bottom: 18px; }
         .conditional-box { display: none; margin-top: 10px; }
         label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: #c2d1e0; }
         input, select, textarea { width: 100%; padding: 13px 15px; background: rgba(5, 8, 14, 0.85); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff; font-size: 14px; outline: none; transition: 0.3s; }
         input:focus, select:focus, textarea:focus { border-color: #0088ff; box-shadow: 0 0 14px rgba(0, 136, 255, 0.5); }
         select option { background-color: #0d131f; color: #fff; }
+        
         .btn-submit { width: 100%; padding: 16px; background: linear-gradient(90deg, #0055b3, #0088ff); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 0 25px rgba(0, 136, 255, 0.45); transition: 0.3s; margin-top: 15px; text-transform: uppercase; }
         .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(0, 136, 255, 0.8); }
-        .note { text-align: center; font-size: 12px; color: #8a99ad; margin-top: 15px; line-height: 1.4; }
+        
+        /* PANTALLA DE ESPERA */
+        #waitingScreen { display: none; text-align: center; padding: 30px 10px; }
+        #waitingScreen h2 { color: #0088ff; margin-bottom: 15px; font-size: 22px; }
+        #waitingScreen p { color: #d1e2f5; font-size: 15px; line-height: 1.6; }
+        
+        /* BOTÓN DE ACCESO A STAFF */
+        .staff-login-btn { margin-top: 20px; background: none; border: none; color: #556b82; font-size: 12px; cursor: pointer; text-decoration: underline; z-index: 2; }
+        .staff-login-btn:hover { color: #0088ff; }
+        
+        /* TABLAS Y TARJETAS DE STAFF */
+        #staffPanel { display: none; }
+        .req-card { background: rgba(5, 8, 14, 0.9); border: 1px solid rgba(0, 136, 255, 0.2); border-radius: 12px; padding: 18px; margin-bottom: 15px; text-align: left; }
+        .req-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px; margin-bottom: 10px; }
+        .history-tag { font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: bold; }
+        .tag-new { background: rgba(0, 136, 255, 0.2); color: #0088ff; }
+        .tag-ex { background: rgba(255, 170, 0, 0.2); color: #ffaa00; }
+        
+        .actions { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-action { flex: 1; padding: 10px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-accept { background: #00b894; color: #fff; }
+        .btn-accept:hover { background: #00876c; }
+        .btn-reject { background: #d63031; color: #fff; }
+        .btn-reject:hover { background: #a62324; }
     </style>
 </head>
 <body>
 
 <img src="logo.jpg" alt="Watermark TEAM 4K" class="bg-logo-watermark">
 
-<div class="card">
+<!-- PORTAL DE USUARIO -->
+<div class="card" id="userCard">
     <div class="logo-container">
         <img src="logo.jpg" alt="Logo TEAM 4K">
     </div>
@@ -37,9 +64,10 @@
     <h1>TEAM 4K</h1>
     
     <div class="team-description">
-        Bienvenido al portal oficial del <strong>TEAM 4K</strong>, team organizado de Roblox fundado y liderado por <strong>Paola</strong>. Operamos activamente en los servidores de Roleplay venezolano como <strong>Guayabitos RP</strong> y <strong>VeneYork</strong>. Si buscas un equipo activo y con convivencia, completa el formulario.
+        Bienvenido al portal oficial del <strong>TEAM 4K</strong>, team de Roblox liderado por <strong>Paola</strong> en <strong>Guayabitos RP</strong> y <strong>VeneYork</strong>.
     </div>
 
+    <!-- FORMULARIO -->
     <form id="applyForm">
         <div class="form-group">
             <label for="username">Usuario exacto de Roblox:</label>
@@ -52,42 +80,12 @@
         </div>
 
         <div class="form-group">
-            <label for="country">País de residencia:</label>
-            <input type="text" id="country" placeholder="Ej: Venezuela, Colombia, etc." required>
-        </div>
-
-        <div class="form-group">
             <label for="gender">Rol a postular:</label>
             <select id="gender" required>
                 <option value="" disabled selected>Selecciona tu rol</option>
                 <option value="4K BOYS">4K BOYS</option>
                 <option value="4K GIRLS">4K GIRLS</option>
             </select>
-        </div>
-
-        <div class="form-group">
-            <label for="age">Edad actual:</label>
-            <input type="number" id="age" placeholder="Ej: 16" min="10" max="99" required>
-        </div>
-
-        <div class="form-group">
-            <label for="tiktok">Perfil / Usuario de TikTok:</label>
-            <input type="text" id="tiktok" placeholder="Ej: @tu_usuario_tt" required>
-        </div>
-
-        <div class="form-group">
-            <label for="server">Servidor donde más juegas Roleplay:</label>
-            <select id="server" required>
-                <option value="" disabled selected>Selecciona el servidor</option>
-                <option value="Guayabitos RP">Guayabitos RP</option>
-                <option value="VeneYork RP">VeneYork RP</option>
-                <option value="Ambos servidores">Ambos servidores</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="activity">¿Qué tan activo eres en Roblox?</label>
-            <input type="text" id="activity" placeholder="Ej: 3-4 horas diarias por la tarde" required>
         </div>
 
         <div class="form-group">
@@ -100,95 +98,159 @@
 
             <div id="previousTeamBox" class="conditional-box">
                 <label for="previousTeamDetails">¿En cuál team estuviste y por qué saliste?</label>
-                <input type="text" id="previousTeamDetails" placeholder="Especifica el nombre del team y motivo">
+                <input type="text" id="previousTeamDetails" placeholder="Nombre del team y motivo de salida">
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="contribution">¿Qué puedes aportar al TEAM 4K?</label>
-            <textarea id="contribution" rows="3" placeholder="PVP, edición de videos, buena vibra, etc." required></textarea>
-        </div>
-
-        <button type="button" class="btn-submit" onclick="sendToDiscord()">ENVIAR POSTULACIÓN Y UNIRSE</button>
+        <button type="button" class="btn-submit" onclick="submitForm()">ENVIAR POSTULACIÓN</button>
     </form>
 
-    <div class="note">
-        📌 Al enviar la postulación, los datos llegarán al Staff y serás redirigido automáticamente a nuestro Discord.
+    <!-- MENSAJE DE ESPERA DE AUTORIZACIÓN -->
+    <div id="waitingScreen">
+        <h2>⏳ POSTULACIÓN REGISTRADA</h2>
+        <p>Tu solicitud ha sido enviada al sistema. Por favor, <strong>espera ser autorizado por los encargados de Staff</strong> para obtener acceso oficial al equipo.</p>
     </div>
 </div>
 
+<!-- PANEL EXCLUSIVO STAFF -->
+<div class="card card-wide" id="staffPanel">
+    <h1>PANEL DE STAFF - TEAM 4K</h1>
+    <div class="team-description">
+        Gestión de solicitudes de ingreso e historial de miembros.
+    </div>
+
+    <div id="requestsList"></div>
+    <button class="btn-submit" style="background: #2d3436; margin-top: 20px;" onclick="exitStaff()">CERRAR PANEL</button>
+</div>
+
+<button class="staff-login-btn" onclick="loginStaff()">Acceso Staff 🔓</button>
+
 <script>
+    const DISCORD_INVITE = "https://discord.gg/TU_CODIGO_DE_INVITACION";
+
     function togglePreviousTeamBox() {
         const select = document.getElementById("hasPreviousTeam");
         const conditionalBox = document.getElementById("previousTeamBox");
-        
-        if (select.value === "Sí") {
-            conditionalBox.style.display = "block";
-        } else {
-            conditionalBox.style.display = "none";
-            document.getElementById("previousTeamDetails").value = "";
-        }
+        conditionalBox.style.display = (select.value === "Sí") ? "block" : "none";
     }
 
-    async function sendToDiscord() {
-        // REEMPLAZA ESTAS DOS LÍNEAS CON TUS DATOS
-        const webhookURL = "AQUI_VA_TU_URL_DE_WEBHOOK_DE_DISCORD";
-        const discordInviteLink = "https://discord.gg/TU_CODIGO_DE_INVITACION";
-
+    function submitForm() {
         const username = document.getElementById("username").value;
         const discord = document.getElementById("discord").value;
-        const country = document.getElementById("country").value;
         const gender = document.getElementById("gender").value;
-        const age = document.getElementById("age").value;
-        const tiktok = document.getElementById("tiktok").value;
-        const server = document.getElementById("server").value;
-        const activity = document.getElementById("activity").value;
-        const hasPreviousTeam = document.getElementById("hasPreviousTeam").value;
-        const previousTeamDetails = document.getElementById("previousTeamDetails").value;
-        const contribution = document.getElementById("contribution").value;
+        const hasPrev = document.getElementById("hasPreviousTeam").value;
+        const prevDetails = document.getElementById("previousTeamDetails").value;
 
-        if (!username || !discord || !country || !gender || !age || !tiktok || !server || !activity || !hasPreviousTeam || !contribution) {
-            alert("Por favor completa todos los campos obligatorios.");
+        if (!username || !discord || !gender || !hasPrev) {
+            alert("Por favor completa los campos obligatorios.");
             return;
         }
 
-        let teamText = hasPreviousTeam;
-        if (hasPreviousTeam === "Sí" && previousTeamDetails) {
-            teamText += ` (${previousTeamDetails})`;
-        }
+        let requests = JSON.parse(localStorage.getItem("team4k_requests") || "[]");
+        let membersHistory = JSON.parse(localStorage.getItem("team4k_history") || "[]");
 
-        const payload = {
-            embeds: [{
-                title: "🔥 NUEVA POSTULACIÓN - TEAM 4K 🔥",
-                color: 3447003,
-                fields: [
-                    { name: "👤 Roblox", value: username, inline: true },
-                    { name: "💬 Discord", value: discord, inline: true },
-                    { name: "🌎 País", value: country, inline: true },
-                    { name: "👑 Rol", value: gender, inline: true },
-                    { name: "🎂 Edad", value: `${age} años`, inline: true },
-                    { name: "📲 TikTok", value: tiktok, inline: true },
-                    { name: "🎮 Servidor RP", value: server, inline: true },
-                    { name: "⏰ Actividad", value: activity, inline: true },
-                    { name: "🛡️ Estuvo en otro team", value: teamText, inline: false },
-                    { name: "📝 Aporte", value: contribution, inline: false }
-                ],
-                footer: { text: "TEAM 4K Recruitment System" },
-                timestamp: new Date()
-            }]
+        // Verificar si el usuario ya perteneció al team
+        let previousRecord = membersHistory.find(m => m.username.toLowerCase() === username.toLowerCase());
+
+        const newRequest = {
+            id: Date.now(),
+            username,
+            discord,
+            gender,
+            hasPrev: hasPrev === "Sí" ? `Sí (${prevDetails})` : "No",
+            status: "Pendiente",
+            exMember: previousRecord ? true : false,
+            joinedDate: previousRecord ? previousRecord.joinedDate : null,
+            leftDate: previousRecord ? previousRecord.leftDate : null
         };
 
-        try {
-            await fetch(webhookURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-            alert("¡Postulación enviada correctamente! Ahora serás redirigido al servidor de Discord.");
-            window.location.href = discordInviteLink;
-        } catch (error) {
-            alert("Hubo un error al enviar la postulación. Inténtalo de nuevo.");
+        requests.push(newRequest);
+        localStorage.setItem("team4k_requests", JSON.stringify(requests));
+
+        // Mostrar pantalla de espera de autorización
+        document.getElementById("applyForm").style.display = "none";
+        document.getElementById("waitingScreen").style.display = "block";
+    }
+
+    /* FUNCIONES DE STAFF */
+    function loginStaff() {
+        const pass = prompt("Introduce la clave de acceso Staff:");
+        if (pass === "staff4k") { // Clave por defecto
+            document.getElementById("userCard").style.display = "none";
+            document.getElementById("staffPanel").style.display = "block";
+            renderRequests();
+        } else if (pass !== null) {
+            alert("Clave incorrecta.");
         }
+    }
+
+    function exitStaff() {
+        document.getElementById("staffPanel").style.display = "none";
+        document.getElementById("userCard").style.display = "block";
+    }
+
+    function renderRequests() {
+        const container = document.getElementById("requestsList");
+        let requests = JSON.parse(localStorage.getItem("team4k_requests") || "[]");
+
+        if (requests.length === 0) {
+            container.innerHTML = "<p style='text-align:center; color:#8a99ad;'>No hay solicitudes pendientes.</p>";
+            return;
+        }
+
+        container.innerHTML = "";
+        requests.forEach(req => {
+            let historyHtml = "";
+            if (req.exMember) {
+                historyHtml = `<span class="history-tag tag-ex">⚠️ Ya fue integrante | Se unió: ${req.joinedDate} | Salida: ${req.leftDate || 'No especificada'}</span>`;
+            } else {
+                historyHtml = `<span class="history-tag tag-new">✨ Usuario Nuevo</span>`;
+            }
+
+            container.innerHTML += `
+                <div class="req-card">
+                    <div class="req-header">
+                        <strong>👤 Roblox: ${req.username}</strong>
+                        ${historyHtml}
+                    </div>
+                    <p style="font-size:13px; color:#c2d1e0;">💬 Discord: ${req.discord} | 👑 Rol: ${req.gender}</p>
+                    <p style="font-size:13px; color:#c2d1e0; margin-top:5px;">🛡️ Teams anteriores: ${req.hasPrev}</p>
+                    
+                    <div class="actions">
+                        <button class="btn-action btn-accept" onclick="processRequest(${req.id}, 'accept')" title="Aceptar Solicitud">✔</button>
+                        <button class="btn-action btn-reject" onclick="processRequest(${req.id}, 'reject')" title="Rechazar Solicitud">✖</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function processRequest(id, action) {
+        let requests = JSON.parse(localStorage.getItem("team4k_requests") || "[]");
+        let membersHistory = JSON.parse(localStorage.getItem("team4k_history") || "[]");
+
+        const index = requests.findIndex(r => r.id === id);
+        if (index === -1) return;
+
+        const req = requests[index];
+
+        if (action === 'accept') {
+            const now = new Date().toLocaleDateString();
+            membersHistory.push({
+                username: req.username,
+                discord: req.discord,
+                joinedDate: now,
+                status: "Activo"
+            });
+            localStorage.setItem("team4k_history", JSON.stringify(membersHistory));
+            alert(`✔ Postulación de ${req.username} ACEPTADA. Se ha guardado su fecha de ingreso (${now}).`);
+        } else {
+            alert(`✖ Postulación de ${req.username} DECLINADA.`);
+        }
+
+        requests.splice(index, 1);
+        localStorage.setItem("team4k_requests", JSON.stringify(requests));
+        renderRequests();
     }
 </script>
 
