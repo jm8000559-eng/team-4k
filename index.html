@@ -27,14 +27,12 @@
         .btn-submit { width: 100%; padding: 16px; background: linear-gradient(90deg, #0055b3, #0088ff); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 0 25px rgba(0, 136, 255, 0.45); transition: 0.3s; margin-top: 15px; text-transform: uppercase; text-decoration: none; display: inline-block; text-align: center; }
         .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(0, 136, 255, 0.8); }
         
-        /* PANTALLA DE ESPERA */
         #waitingScreen { display: none; text-align: center; padding: 20px 10px; }
         #waitingScreen h2 { color: #0088ff; margin-bottom: 15px; font-size: 22px; }
         #waitingScreen p { color: #d1e2f5; font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
         .btn-discord { background: linear-gradient(90deg, #5865F2, #4752C4); box-shadow: 0 0 25px rgba(88, 101, 242, 0.45); }
 
-        /* MODALES */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px); z-index: 10; justify-content: center; align-items: center; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); z-index: 100; justify-content: center; align-items: center; }
         .modal-content { background: rgba(12, 17, 28, 0.95); border: 1px solid #0088ff; border-radius: 20px; padding: 30px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 0 30px rgba(0, 136, 255, 0.4); }
         .modal-content h3 { color: #0088ff; margin-bottom: 15px; font-size: 20px; }
         .modal-btns { display: flex; gap: 10px; margin-top: 15px; }
@@ -42,11 +40,9 @@
         .btn-confirm { background: #0088ff; color: #fff; }
         .btn-cancel { background: #2d3436; color: #fff; }
 
-        /* BOTÓN ACCESO STAFF */
-        .staff-login-btn { margin-top: 20px; background: none; border: none; color: #556b82; font-size: 13px; cursor: pointer; text-decoration: underline; z-index: 2; transition: 0.2s; }
-        .staff-login-btn:hover { color: #0088ff; }
+        .staff-login-btn { position: fixed; bottom: 15px; right: 15px; background: rgba(12, 17, 28, 0.9); border: 1px solid #0088ff; color: #0088ff; padding: 10px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; z-index: 90; box-shadow: 0 0 15px rgba(0, 136, 255, 0.3); }
+        .staff-login-btn:hover { background: #0088ff; color: #fff; }
         
-        /* TARJETAS Y LISTAS */
         #staffPanel { display: none; }
         .req-card, .log-card { background: rgba(5, 8, 14, 0.9); border: 1px solid rgba(0, 136, 255, 0.2); border-radius: 14px; padding: 20px; margin-bottom: 15px; text-align: left; }
         .req-header, .log-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px; margin-bottom: 10px; }
@@ -71,7 +67,6 @@
 
 <img src="logo.jpg" alt="Watermark TEAM 4K" class="bg-logo-watermark">
 
-<!-- PORTAL DE USUARIO -->
 <div class="card" id="userCard">
     <div class="logo-container">
         <img src="logo.jpg" alt="Logo TEAM 4K">
@@ -167,7 +162,6 @@
     </div>
 </div>
 
-<!-- MODAL CONTRASEÑA STAFF -->
 <div class="modal-overlay" id="passwordModal">
     <div class="modal-content">
         <h3>🔐 Acceso Exclusivo Staff</h3>
@@ -180,7 +174,6 @@
     </div>
 </div>
 
-<!-- MODAL FIRMA DE STAFF (AUDITORÍA) -->
 <div class="modal-overlay" id="staffSignModal">
     <div class="modal-content">
         <h3 id="signModalTitle">✍️ Confirmación de Staff</h3>
@@ -193,7 +186,6 @@
     </div>
 </div>
 
-<!-- PANEL EXCLUSIVO STAFF -->
 <div class="card card-wide" id="staffPanel">
     <h1>PANEL DE STAFF - TEAM 4K</h1>
     <div class="team-description">
@@ -212,7 +204,7 @@
 <button class="staff-login-btn" onclick="openPasswordModal()">Acceso Staff 🔓</button>
 
 <script>
-    let activeAction = null; // Guardar acción pendiente
+    let activeAction = null;
 
     function togglePreviousTeamBox() {
         const select = document.getElementById("hasPreviousTeam");
@@ -221,17 +213,17 @@
     }
 
     function submitForm() {
-        const username = document.getElementById("username").value;
-        const robloxId = document.getElementById("robloxId").value;
-        const avatarImg = document.getElementById("avatarImg").value;
-        const robloxProfile = document.getElementById("robloxProfile").value;
-        const discord = document.getElementById("discord").value;
+        const username = document.getElementById("username").value.trim();
+        const robloxId = document.getElementById("robloxId").value.trim();
+        const avatarImg = document.getElementById("avatarImg").value.trim();
+        const robloxProfile = document.getElementById("robloxProfile").value.trim();
+        const discord = document.getElementById("discord").value.trim();
         const gender = document.getElementById("gender").value;
         const rpLevel = document.getElementById("rpLevel").value;
-        const schedule = document.getElementById("schedule").value;
+        const schedule = document.getElementById("schedule").value.trim();
         const hasPrev = document.getElementById("hasPreviousTeam").value;
-        const prevDetails = document.getElementById("previousTeamDetails").value;
-        const whyJoin = document.getElementById("whyJoin").value;
+        const prevDetails = document.getElementById("previousTeamDetails").value.trim();
+        const whyJoin = document.getElementById("whyJoin").value.trim();
         const commitment = document.getElementById("commitment").value;
 
         if (!username || !robloxId || !avatarImg || !robloxProfile || !discord || !gender || !rpLevel || !schedule || !hasPrev || !whyJoin || !commitment) {
@@ -264,11 +256,11 @@
         requests.push(newRequest);
         localStorage.setItem("team4k_requests", JSON.stringify(requests));
 
+        document.getElementById("applyForm").reset();
         document.getElementById("applyForm").style.display = "none";
         document.getElementById("waitingScreen").style.display = "block";
     }
 
-    /* SISTEMA DE AUTENTICACIÓN STAFF */
     function openPasswordModal() {
         document.getElementById("passwordModal").style.display = "flex";
         document.getElementById("staffPassInput").value = "";
@@ -295,9 +287,10 @@
     function exitStaff() {
         document.getElementById("staffPanel").style.display = "none";
         document.getElementById("userCard").style.display = "block";
+        document.getElementById("applyForm").style.display = "block";
+        document.getElementById("waitingScreen").style.display = "none";
     }
 
-    /* RENDER DE SOLICITUDES */
     function renderRequests() {
         const container = document.getElementById("requestsList");
         let requests = JSON.parse(localStorage.getItem("team4k_requests") || "[]");
@@ -307,13 +300,13 @@
             return;
         }
 
-        container.innerHTML = "";
+        let html = "";
         requests.forEach(req => {
             let historyHtml = req.exMember 
                 ? `<span class="history-tag tag-ex">⚠️ Ya fue integrante | Se unió: ${req.joinedDate}</span>`
                 : `<span class="history-tag tag-new">✨ Usuario Nuevo</span>`;
 
-            container.innerHTML += `
+            html += `
                 <div class="req-card">
                     <div class="req-header">
                         <strong>👤 Roblox: ${req.username} (ID: ${req.robloxId})</strong>
@@ -335,9 +328,9 @@
                 </div>
             `;
         });
+        container.innerHTML = html;
     }
 
-    /* MODAL DE REGISTRO / AUDITORÍA */
     function openStaffSignModal(id, type) {
         activeAction = { id, type };
         document.getElementById("staffSignModal").style.display = "flex";
@@ -380,7 +373,6 @@
             localStorage.setItem("team4k_history", JSON.stringify(membersHistory));
         }
 
-        // Registrar en Auditoría
         auditLogs.unshift({
             username: req.username,
             discord: req.discord,
@@ -391,7 +383,6 @@
         });
         localStorage.setItem("team4k_audit_logs", JSON.stringify(auditLogs));
 
-        // Remover solicitud pendiente
         requests.splice(index, 1);
         localStorage.setItem("team4k_requests", JSON.stringify(requests));
 
@@ -400,7 +391,6 @@
         renderAuditLogs();
     }
 
-    /* RENDER DE HISTORIAL Y AUDITORÍA */
     function renderAuditLogs() {
         const container = document.getElementById("auditLogList");
         let auditLogs = JSON.parse(localStorage.getItem("team4k_audit_logs") || "[]");
@@ -410,12 +400,12 @@
             return;
         }
 
-        container.innerHTML = "";
+        let html = "";
         auditLogs.forEach(log => {
             const isAccepted = log.action === 'Aceptado';
             const tagClass = isAccepted ? 'tag-accepted' : 'tag-rejected';
 
-            container.innerHTML += `
+            html += `
                 <div class="log-card">
                     <div class="log-header">
                         <strong>👤 Usuario: ${log.username}</strong>
@@ -429,6 +419,7 @@
                 </div>
             `;
         });
+        container.innerHTML = html;
     }
 </script>
 
