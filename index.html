@@ -19,7 +19,6 @@
         label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: #c2d1e0; }
         input, select, textarea { width: 100%; padding: 13px 15px; background: rgba(5, 8, 14, 0.85); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff; font-size: 14px; outline: none; transition: 0.3s; }
         input:focus, select:focus, textarea:focus { border-color: #0088ff; box-shadow: 0 0 14px rgba(0, 136, 255, 0.5); }
-        input[type="file"] { padding: 10px; background: rgba(0, 136, 255, 0.05); cursor: pointer; }
         select option { background-color: #0d131f; color: #fff; }
         .btn-submit { width: 100%; padding: 16px; background: linear-gradient(90deg, #0055b3, #0088ff); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 0 25px rgba(0, 136, 255, 0.45); transition: 0.3s; margin-top: 15px; text-transform: uppercase; }
         .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(0, 136, 255, 0.8); }
@@ -110,16 +109,11 @@
             <textarea id="contribution" rows="3" placeholder="PVP, edición de videos, buena vibra, etc." required></textarea>
         </div>
 
-        <div class="form-group">
-            <label for="avatar">Foto / Captura de tu avatar de Roblox:</label>
-            <input type="file" id="avatar" accept="image/*">
-        </div>
-
-        <button type="button" class="btn-submit" onclick="sendToWhatsApp()">ENVIAR POSTULACIÓN</button>
+        <button type="button" class="btn-submit" onclick="sendToDiscord()">ENVIAR POSTULACIÓN Y UNIRSE</button>
     </form>
 
     <div class="note">
-        📌 Al ser aceptado por el Staff, recibirás los enlaces a nuestras redes oficiales y los accesos al servidor privado.
+        📌 Al enviar la postulación, los datos llegarán al Staff y serás redirigido automáticamente a nuestro Discord.
     </div>
 </div>
 
@@ -136,8 +130,10 @@
         }
     }
 
-    function sendToWhatsApp() {
-        const phone = "580000000000"; // Reemplazar por el número del Staff con código de país
+    async function sendToDiscord() {
+        // REEMPLAZA ESTAS DOS LÍNEAS CON TUS DATOS
+        const webhookURL = "AQUI_VA_TU_URL_DE_WEBHOOK_DE_DISCORD";
+        const discordInviteLink = "https://discord.gg/TU_CODIGO_DE_INVITACION";
 
         const username = document.getElementById("username").value;
         const discord = document.getElementById("discord").value;
@@ -161,20 +157,38 @@
             teamText += ` (${previousTeamDetails})`;
         }
 
-        const message = `🔥 *NUEVA POSTULACIÓN - TEAM 4K* 🔥%0A%0A` +
-            `👤 *Roblox:* ${username}%0A` +
-            `💬 *Discord:* ${discord}%0A` +
-            `🌎 *País:* ${country}%0A` +
-            `👑 *Rol:* ${gender}%0A` +
-            `🎂 *Edad:* ${age} años%0A` +
-            `📲 *TikTok:* ${tiktok}%0A` +
-            `🎮 *Servidor RP:* ${server}%0A` +
-            `⏰ *Actividad:* ${activity}%0A` +
-            `🛡️ *Estuvo en otro team:* ${teamText}%0A` +
-            `📝 *Aporte:* ${contribution}%0A%0A` +
-            `📌 *Nota:* Recuerda adjuntar la foto del avatar en este chat.`;
+        const payload = {
+            embeds: [{
+                title: "🔥 NUEVA POSTULACIÓN - TEAM 4K 🔥",
+                color: 3447003,
+                fields: [
+                    { name: "👤 Roblox", value: username, inline: true },
+                    { name: "💬 Discord", value: discord, inline: true },
+                    { name: "🌎 País", value: country, inline: true },
+                    { name: "👑 Rol", value: gender, inline: true },
+                    { name: "🎂 Edad", value: `${age} años`, inline: true },
+                    { name: "📲 TikTok", value: tiktok, inline: true },
+                    { name: "🎮 Servidor RP", value: server, inline: true },
+                    { name: "⏰ Actividad", value: activity, inline: true },
+                    { name: "🛡️ Estuvo en otro team", value: teamText, inline: false },
+                    { name: "📝 Aporte", value: contribution, inline: false }
+                ],
+                footer: { text: "TEAM 4K Recruitment System" },
+                timestamp: new Date()
+            }]
+        };
 
-        window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        try {
+            await fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            alert("¡Postulación enviada correctamente! Ahora serás redirigido al servidor de Discord.");
+            window.location.href = discordInviteLink;
+        } catch (error) {
+            alert("Hubo un error al enviar la postulación. Inténtalo de nuevo.");
+        }
     }
 </script>
 
